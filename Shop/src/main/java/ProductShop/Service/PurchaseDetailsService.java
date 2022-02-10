@@ -53,7 +53,7 @@ public class PurchaseDetailsService {
         purchaseDetails.setProduct(validateProduct(idProduct));
         purchase.setUsuario(validateUser(idUser));
         if (validateStock(quantity, purchaseDetails.getProduct().getStock())) {
-            purchaseDetails.setCantity(quantity);
+            purchaseDetails.setQuantity(quantity);
         } else {
             throw new ErrorServicio("No hay stock disponible");
         }
@@ -79,9 +79,9 @@ public class PurchaseDetailsService {
         if (optionalDetail.isPresent()) {
             PurchaseDetails purchaseDetails = optionalDetail.get();
             purchaseDetails.setProduct(validateProduct(idProduct));
-            purchaseDetails.setCantity(cantity);
+            purchaseDetails.setQuantity(cantity);
             purchaseDetails.setPriceUnit(purchaseDetails.getProduct().getPrice());
-            purchaseDetails.setSubtotal(calculateSubtotal(purchaseDetails.getPriceUnit(), purchaseDetails.getCantity()));
+            purchaseDetails.setSubtotal(calculateSubtotal(purchaseDetails.getPriceUnit(), purchaseDetails.getQuantity()));
             return purchaseDetailsRepository.save(purchaseDetails);
         } else {
             throw new Error("El detalle no existe");

@@ -19,7 +19,7 @@ public class Purchase {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String Id;
+    private String id;
     private Integer purchaseCode;
     private Double total;
     @Enumerated(EnumType.STRING)
@@ -45,11 +45,11 @@ public class Purchase {
     }
     
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public Double getTotal() {

@@ -18,8 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 
 public class ProductController {
-@Autowired
-private ProductRepository productRepository;
+
 
     public ProductController() {
     }
@@ -46,8 +45,8 @@ private ProductRepository productRepository;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SELLER')")
     @PostMapping("/addproduct")
-    public String SaveProduct(MultipartFile archivo, Integer CodeProduct, String Name, Double Price, String TradeMark, String category, Integer Stock, Photo photo) throws ErrorServicio {
-        productservice.CreateProduct(archivo, CodeProduct, Name, Price, TradeMark, category, Stock);
+    public String SaveProduct(MultipartFile archivo, Integer codeProduct, String name, Double price, String tradeMark, String category, Integer stock, Photo photo) throws ErrorServicio {
+        productservice.CreateProduct(archivo, codeProduct, name, price, tradeMark, category, stock, photo);
         //MultipartFile archivo, Integer CodeProduct, String Name, Double Price, String TradeMark, Category category, Integer Stock
         return "redirect:/";
     }
@@ -55,7 +54,7 @@ private ProductRepository productRepository;
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SELLER')")
     @PostMapping("/modifyproduct/{idProduct}")
     public String ModifyProduct(MultipartFile archivo, @PathVariable String idProduct, String Name, Double Price, String TradeMark, String category, Integer Stock, Photo photo, Integer codeProduct) throws ErrorServicio {
-        productservice.ModifyProduct(archivo, idProduct, Name, Price, TradeMark, category, Stock, codeProduct);
+        productservice.ModifyProduct(archivo, idProduct, Name, Price, TradeMark, category, Stock, codeProduct, photo);
         return "redirect:/";
     }
 //

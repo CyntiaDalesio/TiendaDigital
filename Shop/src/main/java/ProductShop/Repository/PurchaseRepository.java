@@ -22,6 +22,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase,String> {
     @Query("Select p from Purchase p WHERE p.usuario.username LIKE %:name% ORDER BY purchaseCode ASC")
     public List<Purchase> findByClient(@Param("name") String name);
 
-    @Query("Select p from Purchase p WHERE p.purchaseDetail.product.Name LIKE %:articulo%")
+    @Query("Select p from Purchase p WHERE p.purchaseDetail.product.name LIKE %:articulo%")
     public List<Purchase> findByArticulo(@Param("articulo") String articulo);
 }
