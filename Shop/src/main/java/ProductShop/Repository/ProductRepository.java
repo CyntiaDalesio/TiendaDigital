@@ -11,20 +11,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-    @Query("Select p from Product p WHERE p.Name LIKE %:Name% AND p.availableStock = true")
-    public List<Product> findByName(@Param("Name") String Name);
+    @Query("Select p from Product p WHERE p.name LIKE %:name% AND p.availableStock = true")
+    public List<Product> findByName(@Param("name") String name);
 
     public List<Product> findByCategory(Category category);
 
-    @Query("Select p from Product p WHERE p.CodeProduct = :CodeProduct")
-    public List<Product> findByCodeProduct(@Param("CodeProduct") Integer CodeProduct);
+    @Query("Select p from Product p WHERE p.codeProduct = :codeProduct")
+    public List<Product> findByCodeProduct(@Param("codeProduct") Integer codeProduct);
 
     public List<Product> findByAvailableStockTrue();
 
    @Query("Select p from Product p WHERE p.availableStock = false")
     public List<Product> findByAvailableStockFalse(@Param("availableStock") Boolean availableStock);
 
-    @Query("Select p from Product p WHERE p.Price <= :Price AND p.availableStock = true ORDER BY Price ASC ")
-    public List<Product> findByPrice(@Param("Price") Double Price);
+    @Query("Select p from Product p WHERE p.price <= :price AND p.availableStock = true ORDER BY price ASC ")
+    public List<Product> findByPrice(@Param("price") Double price);
 
 }

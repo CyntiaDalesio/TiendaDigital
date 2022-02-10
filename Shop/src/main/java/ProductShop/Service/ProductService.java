@@ -26,21 +26,20 @@ public class ProductService {
 
     
     @Transactional
-    public Product CreateProduct(MultipartFile archivo, Integer CodeProduct, String Name, Double Price, String TradeMark, String category, Integer Stock) throws ErrorServicio {
+    public Product CreateProduct(MultipartFile archivo, Integer codeProduct, String name, Double price, String tradeMark, String category, Integer stock, Photo photo) throws ErrorServicio {
 
         Product product = new Product();
-        product.setCodeProduct(CodeProduct);
-        if (CodeProduct == null) {
-            product.setCodeProduct(CodeProduct);
-        }
-        product.setName(Name);
-        product.setStock(Stock);
-        product.setPrice(Price);
-        product.setTradeMark(TradeMark);
+        product.setCodeProduct(codeProduct);
+        
+        product.setName(name);
+        product.setStock(stock);
+        product.setPrice(price);
+        product.setTradeMark(tradeMark);
         product.setCategory(Category.valueOf(category));
-        Photo photo = photoService.save(archivo);
-        product.setPhoto(photo);
-        if (Stock > 0) {
+        if (product.getPhoto() == null){
+       photo = photoService.save(archivo);
+        product.setPhoto(photo);}
+        if (stock > 0) {
             product.setAvailableStock(true);
         } else {
             product.setAvailableStock(false);
@@ -51,43 +50,38 @@ public class ProductService {
 
     @Transactional
 
-    public void ModifyProduct(MultipartFile archivo, String idProduct, String Name, Double Price, String TradeMark, String category, Integer Stock, Integer CodeProduct) throws ErrorServicio {
-
+    public void ModifyProduct(MultipartFile archivo, String idProduct, String name, Double price, String tradeMark, String category, Integer stock, Integer codeProduct, Photo photo) throws ErrorServicio {
+        
         Optional<Product> answer = productrepository.findById(idProduct);
         if (answer.isPresent()) {
             Product product = answer.get();
+            product.setCategory(null);
+            product.setCodeProduct(codeProduct);
 
-            product.setCodeProduct(CodeProduct);
-
-            product.setName(Name);
-            product.setPrice(Price);
-            product.setStock(Stock);
+            product.setName(name);
+            product.setPrice(price);
+            product.setStock(stock);
 
             if (product.getStock()>0) {
                 product.setAvailableStock(Boolean.TRUE);
             }
-            product.setTradeMark(TradeMark);
+            product.setTradeMark(tradeMark);
             product.setCategory(Category.valueOf(category));
-
-            String idPhoto = null;
             
-            if (archivo != null) {
-                if (product.getPhoto() != null) {
-                    idPhoto = product.getPhoto().getId();
-
-                    Photo photo = photoService.updatePhoto(idPhoto, archivo);
-                    product.setPhoto(photo);
-                   
-                    product.getPhoto();
-                } else {
-                    Photo photo = photoService.save(archivo);
+           
+            String idPhoto = product.getPhoto().getId();
+            
+            if (archivo == null) {
+                 product.getPhoto();}
+                 else {
+                    photo = photoService.updatePhoto(idPhoto, archivo);
                     product.setPhoto(photo);
 
                 }
-            }
+            
         
 
-        if (Stock > 0) {
+        if (stock > 0) {
             product.setAvailableStock(true);
         } else {
             product.setAvailableStock(false);

@@ -19,14 +19,14 @@ public class Product implements Serializable {
     @GenericGenerator(name= "uuid",strategy = "uuid2")
     private String idProduct;
 
-    private Integer CodeProduct;
-    private String Name;
-    private Double Price;
-    private String TradeMark;
+    private Integer codeProduct;
+    private String name;
+    private Double price;
+    private String tradeMark;
     @Enumerated(EnumType.STRING)
     private Category category;
     
-    private Integer Stock;
+    private Integer stock;
     
     private Boolean availableStock;
     
@@ -40,29 +40,8 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "idProduct=" + idProduct + ", CodeProduct=" + CodeProduct + ", Name=" + Name + ", Price=" + Price + ", TradeMark=" + TradeMark +  ", Stock=" + Stock + ", availableStock=" + availableStock + '}';
+        return "Product{" + "idProduct=" + idProduct + ", CodeProduct=" + codeProduct + ", Name=" + name + ", Price=" + price + ", TradeMark=" + tradeMark +  ", Stock=" + stock + ", availableStock=" + availableStock + '}';
     }
-
-    public Product(Integer CodeProduct, String Name, Double Price, String TradeMark, Category category, Integer Stock, Photo photo) {
-        this.CodeProduct = CodeProduct;
-        this.Name = Name;
-        this.Price = Price;
-        this.TradeMark = TradeMark;
-        this.category = category;
-        this.Stock = Stock;
-        this.photo = photo;
-    }
-
-    public Product(Integer CodeProduct, String Name, Double Price, String TradeMark, Category category, Integer Stock) {
-        this.CodeProduct = CodeProduct;
-        this.Name = Name;
-        this.Price = Price;
-        this.TradeMark = TradeMark;
-        this.category = category;
-        this.Stock = Stock;
-      
-    }
-
 
     public String getIdProduct() {
         return idProduct;
@@ -73,35 +52,35 @@ public class Product implements Serializable {
     }
 
     public Integer getCodeProduct() {
-        return CodeProduct;
+        return codeProduct;
     }
 
-    public void setCodeProduct(Integer CodeProduct) {
-        this.CodeProduct = CodeProduct;
+    public void setCodeProduct(Integer codeProduct) {
+        this.codeProduct = codeProduct;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
-        return Price;
+        return price;
     }
 
-    public void setPrice(Double Price) {
-        this.Price = Price;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getTradeMark() {
-        return TradeMark;
+        return tradeMark;
     }
 
-    public void setTradeMark(String TradeMark) {
-        this.TradeMark = TradeMark;
+    public void setTradeMark(String tradeMark) {
+        this.tradeMark = tradeMark;
     }
 
     public Category getCategory() {
@@ -112,25 +91,12 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-  
-
     public Integer getStock() {
-        return Stock;
+        return stock;
     }
 
-    public void setStock(Integer Stock) {
-        this.Stock = Stock;
-    }
-
-  
-  
-
-    public Photo getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public Boolean getAvailableStock() {
@@ -140,7 +106,24 @@ public class Product implements Serializable {
     public void setAvailableStock(Boolean availableStock) {
         this.availableStock = availableStock;
     }
-    
-   
-}
 
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public Product(String idProduct, Integer codeProduct, String name, Double price, String tradeMark, Category category, Integer stock, Photo photo) {
+     
+        this.codeProduct = codeProduct;
+        this.name = name;
+        this.price = price;
+        this.tradeMark = tradeMark;
+        this.category = category;
+        this.stock = stock;
+        this.photo = photo;
+    }
+
+}
