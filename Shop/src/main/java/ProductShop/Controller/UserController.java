@@ -112,4 +112,30 @@ public class UserController {
         return "redirect:/users";
     }
 
+
+@GetMapping("/registerSeller")
+    public String newSeller() {
+        return "registerSeller.html";
+    }
+
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/registerSeller")
+public String registerSeller(@RequestParam String username, @RequestParam String password, @RequestParam String password2, @RequestParam String email, @RequestParam String dni){
+
+
+   try {
+
+            userService.saveSeller(username, password, password2, email, dni);
+        } catch (Error ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "redirect:/login";
+}
+
+
+
+
+
+
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="all"
+            href="/src/main/resources/static/styles/style.css"
+            th:href="@{/styles/style.css}"
+            />
+            <link
+            rel="stylesheet"
+            type="text/css"
+            media="all"
+            href="/src/main/resources/static/styles/register.css"
+            th:href="@{/styles/register.css}"
+            />
+        <title>Registrar Vendedor</title>
+    </head>
+    <body>
+        <header>
+            <section class="main-title">
+                <a href="/"><h1 id="home">E-Gam<span>Egg</span></h1></a>
+            </section>
+        </header>
+        <main class="main">
+            <div class="container">
+                <h2 class="register-title">Regis<span>trate</span></h2>
+            <form th:action="@{/registerSeller}" method="post" class="col-6 mx-auto">
+                <label> Usuario </label><br />
+
+                <input type="text" name="username" placeholder="Usuario" required/><br />
+
+                <label> Email </label><br />
+
+                <input type="email" name="email" placeholder="Email" required/><br />
+
+                <label> DNI </label><br />
+
+                <input type="number" name="dni" placeholder="DNI" required/><br />
+
+                <label> Contraseña </label><br />
+
+                <input type="password" name="password" placeholder="Contraseña" required/><br />
+
+                <label> Repita su contraseña </label><br />
+
+                <input type="password" name="password2" placeholder="Repita su contraseña" required/><br />
+
+                <br />
+
+                <input type="submit" name="login" value="Registrarse" class="button" >
+                <input type="button" name="" value="Cancelar"  onclick="location.href='../'">
+            </form>
+             </div>
+        </main>
+        <footer>
+            <h3>Todos los derechos reservados E-GamEgg</h3>
+        </footer>
+    </body>
+</html>

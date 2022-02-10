@@ -234,4 +234,52 @@ public class UserService implements UserDetailsService {
         }
 
     }
+
+    public void saveSeller(String username, String password, String password2, String email, String dni) {
+
+
+  Usuario user = new Usuario();
+
+        if (email == null || email.isEmpty()) {
+            throw new Error("El email no puede ser nulo");
+        }
+
+        if (dni == null || dni.isEmpty()) {
+            throw new Error("El dni no puede ser nulo");
+        }
+
+        if (username == null || username.isEmpty()) {
+            throw new Error("El username no puede ser nulo");
+        }
+
+        if (password == null || password.isEmpty() || password2 == null || password2.isEmpty()) {
+            throw new Error("El password no puede ser nulo");
+        }
+
+        if (!password.equals(password2)) {
+            throw new Error("Los password no coinciden");
+
+        }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(password)); // encripta la contraseña
+
+        Usuario userExist = userRepository.findByUsername(username);
+        if (userExist != null) {
+
+            throw new Error("El username ya existe");
+        } else {
+
+            user.setUsername(username);
+            user.setDni(dni);
+            user.setEmail(email);
+            user.setStartDate(Calendar.getInstance().getTime());
+            user.setRol(Role.SELLER);
+
+       userRepository.save(user);
+        }
+
+
+
+
+    }
 }

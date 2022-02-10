@@ -9,10 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-GamEgg</title>
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -34,7 +31,15 @@
             <h3 class="user-Loged" sec:authorize="isAuthenticated()">Hola [[${usuario?.username}]]</h3>
             <a type="submit" id="signIn" th:href="@{/login/}" class="a-button" sec:authorize="isAnonymous()">Iniciar
                 Sesión </a>
+            
+            
+            
             <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/users/}" class="a-button">Listar Usuarios</a>
+
+
+
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/registerSeller/}" class="a-button">Registrar vendedor</a>
+
             <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_SELLER')" th:href="@{/purchase/sales}"
                 class="a-button">Ventas Realizadas</a>
             <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/purchase/myShopping/}" class="a-button">Mis Compras</a>
@@ -42,8 +47,7 @@
             <a sec:authorize="isAuthenticated()" href="/logout" type="logOut" id="LogOut" class="a-button">Salir</a>
             <br>
             <br>
-            <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/contact/}"
-                class="a-button">Contactanos</a>
+            <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/contact/}" class="a-button">Contactanos</a>
         </nav>
         <div class="movil menuResponsive">
             <input type="checkbox" id="btn_menu">
@@ -62,10 +66,10 @@
                                 sec:authorize="isAnonymous()">Iniciar Sesión </a></li>
                         <li><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/users/}" class=" m">Listar Usuarios</a>
                         </li>
-                        <li><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/purchase/sales}"
-                                class="m">Ventas Realizadas</a></li>
-                        <li><a sec:authorize="hasRole('ROLE_USER')" th:href="@{/purchase/myShopping}"
-                                class=" m">Mis Compras</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/purchase/sales}" class="m">Ventas
+                                Realizadas</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_USER')" th:href="@{/purchase/myShopping}" class=" m">Mis
+                                Compras</a></li>
                         <li><a sec:authorize="isAuthenticated()" th:href="@{/editUser}" class=" m">Modificar
                                 perfil</a></li>
                         <li><a sec:authorize="isAuthenticated()" href="/logout" type="logOut" id="LogOut"
@@ -127,8 +131,8 @@
                     <input name="Name" placeholder="Nombre" type="text" th:value="${product?.name}">
                     <button type="submit" class="buttonFilter">Buscar por nombre</button>
                 </form>
-                
-                <form  th:action="@{/searchprice/}+${product?.Price}" method="post"
+
+                <form th:action="@{/searchprice/}+${product?.Price}" method="post"
                     sec:authorize="hasRole('ROLE_USER') or isAnonymous()">
 
                     <input Placeholder="Precio Maximo" name="Price" type="number" min="0" max="500000" step="any"
@@ -136,26 +140,41 @@
                     <button type="submit" class="buttonFilter">Buscar Por Precio</button>
                 </form>
 
-                <form  th:action="@{/searchcode/}+${product?.CodeProduct}" method="post"
+                <form th:action="@{/searchcode/}+${product?.CodeProduct}" method="post"
                     sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_SELLER')">
                     <input Placeholder="Codigo" name="CodeProduct" type="number" th:value="${product?.CodeProduct}">
-                    <button type="submit" class="buttonFilter" >Buscar por codigo</button>
+                    <button type="submit" class="buttonFilter">Buscar por codigo</button>
                 </form>
-                <form  th:action="@{/searchbaja/}+${product?.availableStock}" method="post"
+                <form th:action="@{/searchbaja/}+${product?.availableStock}" method="post"
                     sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_SELLER')">
-                     <button type="submit" class="buttonFilter">Productos no disponibles</button></form>
-            <form  action="/" method="get">
-          
-    
-            <button type="submit" class="cleanFilter">Limpiar filtro</button>
-        </form>
+                    <button type="submit" class="buttonFilter">Productos no disponibles</button>
+                </form>
+                <form action="/" method="get">
+
+
+                    <button type="submit" class="cleanFilter">Limpiar filtro</button>
+                </form>
 
 
             </div>
 
         </section>
 
+
+
+
         <section class="cards-conteiner">
+
+
+            <div class="cards-product add-product" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="add-product" th:href="addproduct">
+
+                    <i class="fas fa-plus fa-2x"></i>
+                    <h3>Agregar Producto</h3>
+                </a>
+            </div>
+
+
 
 
             <th:block th:each="product : ${products}">
@@ -174,6 +193,17 @@
                         Baja Stock
                     </a>
 
+
+                                        
+                    <a sec:authorize="hasRole('ROLE_USER')" type="button" class="modify"
+                        th:href="@{/purchase/}+${product.idProduct}">
+                        Agregar
+                    </a>
+                    <a sec:authorize="isAnonymous()" type="button" class="modify" th:href="@{/login/}">
+                        Agregar 
+
+                    </a>
+
                     <a sec:authorize="hasRole('ROLE_USER')" type="button" class="modify"
                         th:href="@{/purchase/}+${product.idProduct}">
                         Comprar
@@ -184,14 +214,8 @@
                 </div>
             </th:block>
 
-            </div>
-            <div class="cards-product add-product" sec:authorize="hasRole('ROLE_ADMIN')">
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="add-product" th:href="addproduct">
 
-                    <i class="fas fa-plus fa-2x"></i>
-                    <h3>Agregar Producto</h3>
-                </a>
-            </div>
+
         </section>
     </main>
     <footer>
