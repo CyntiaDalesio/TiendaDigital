@@ -6,7 +6,6 @@ import ProductShop.Enums.Category;
 import ProductShop.Repository.ProductRepository;
 import ProductShop.errores.ErrorServicio;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +26,12 @@ public class ProductService {
     
     @Transactional
     public Product CreateProduct(MultipartFile archivo, Integer codeProduct, String name, Double price, String tradeMark, String category, Integer stock, Photo photo) throws ErrorServicio {
-
+        try {
+        if(productrepository.findByCodeProduct(codeProduct).isEmpty()){
+          
         Product product = new Product();
         product.setCodeProduct(codeProduct);
+    
         
         product.setName(name);
         product.setStock(stock);
@@ -44,9 +46,17 @@ public class ProductService {
         } else {
             product.setAvailableStock(false);
         }
-        return productrepository.save(product);
+        
 
-    }
+    
+
+       return productrepository.save(product);
+            
+        }}  catch (Exception e) {
+                e.getStackTrace();
+                }
+    return null;}
+
 
     @Transactional
 
@@ -130,7 +140,7 @@ public List<Product> listarProductBaja(Boolean availableStock) {
     return p;}
     
     public List<Product> searchbyname(String Name){
-        System.out.println(Name);
+        
       
       
        

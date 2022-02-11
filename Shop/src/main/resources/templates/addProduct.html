@@ -29,7 +29,7 @@
     <section class="container-form">
     <form  id="contact_form" action="/addproduct" method="post" enctype="multipart/form-data" class="product-form">
           <label>CODIGO</label>
-              <input name="codeProduct" placeholder="Codigo Producto"  type="text" required/>
+              <input name="codeProduct" th:min="${product?.codeProduct}" max="500000" placeholder="Codigo Producto"  type="text" required/>
           <label>NOMBRE</label>
               <input name="name" placeholder="Nombre" type="text" required/>
           <label >PRECIO</label>
@@ -47,6 +47,9 @@
           <input type="submit" value="Cargar Producto" required/>
           <input type="button" value="Cancelar"  onclick="location.href='../'">
     </form>
+        <div th:if="${error}" class="alert alert-danger" role="alert"> 
+            <p> El codigo de producto ya ha sido utilizado!</p>
+    </div>
   </section>
 </main>
 <footer>

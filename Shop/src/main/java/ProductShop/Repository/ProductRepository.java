@@ -27,4 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query("Select p from Product p WHERE p.price <= :price AND p.availableStock = true ORDER BY price ASC ")
     public List<Product> findByPrice(@Param("price") Double price);
 
+   
+    
 }
