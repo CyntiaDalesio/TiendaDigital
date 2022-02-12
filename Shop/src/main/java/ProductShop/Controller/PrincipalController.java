@@ -48,11 +48,12 @@ public class PrincipalController {
         model.put("products", productos);
         return "index.html";
     }
-
+   
     @PostMapping("/searchname/{Name}")
     public String SearchName(ModelMap model, String Name) {
         List<Product> products = productservice.searchbyname(Name);
         model.put("products", products);
+       
         return "index.html";
     }
 
