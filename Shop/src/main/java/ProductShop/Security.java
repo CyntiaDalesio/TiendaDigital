@@ -26,11 +26,8 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
-//    
-//    
-//    
+//cambios 
 //    // la configuracion de las peticiones http
-//
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
