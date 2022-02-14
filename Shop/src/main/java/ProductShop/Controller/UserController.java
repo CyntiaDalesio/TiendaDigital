@@ -1,6 +1,7 @@
 package ProductShop.Controller;
 
 import ProductShop.Entity.Usuario;
+import ProductShop.Mail.MailService;
 import ProductShop.Service.UserService;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/users")
@@ -58,6 +62,9 @@ public class UserController {
         try {
 
             userService.save(username, password, password2, email, dni);
+
+            mailService.enviarMailRegister(email, username);
+
         } catch (Error ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +83,7 @@ public class UserController {
     @PostMapping("/editUser")
     public String update(@RequestParam String username, @RequestParam String password, @RequestParam String password2, @RequestParam String email, @RequestParam String dni) throws Error {
 
-              Usuario user = userService.obtenerUsuarioSesion();
+        Usuario user = userService.obtenerUsuarioSesion();
 
         userService.changeUser(user.getIdUser(), username, dni, email, password, password2);
         return "redirect:/";
@@ -91,7 +98,7 @@ public class UserController {
         return "redirect:/users";
     }
 
- @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/users/deleteUser/{id}")
     public String deleteRole(@PathVariable String id, ModelMap model) throws Error {
 
@@ -99,10 +106,6 @@ public class UserController {
 
         return "redirect:/users";
     }
-
-
-
-
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("clientes/updateRole/{id}")
@@ -112,30 +115,22 @@ public class UserController {
         return "redirect:/users";
     }
 
-
-@GetMapping("/registerSeller")
+    @GetMapping("/registerSeller")
     public String newSeller() {
         return "registerSeller.html";
     }
 
-
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/registerSeller")
-public String registerSeller(@RequestParam String username, @RequestParam String password, @RequestParam String password2, @RequestParam String email, @RequestParam String dni){
+    public String registerSeller(@RequestParam String username, @RequestParam String password, @RequestParam String password2, @RequestParam String email, @RequestParam String dni) {
 
-
-   try {
+        try {
 
             userService.saveSeller(username, password, password2, email, dni);
         } catch (Error ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "redirect:/login";
-}
-
-
-
-
-
+    }
 
 }

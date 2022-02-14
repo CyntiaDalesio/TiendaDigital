@@ -19,21 +19,23 @@ public class MailControler {
 @Autowired
 private MailService mailService;
 
-@GetMapping("")
-public String index(){
-return "";
-}
+//@GetMapping("")
+//public String index(){
+//return "mail";
+//}
 
-@PostMapping("/enviarmail")
-public String enviarMail(@RequestParam String destinario,@RequestParam String asunto,@RequestParam String contenido,@RequestParam String comentario ){
-
-mailService.contactar(asunto, comentario);
-mailService.enviarMail(destinario, asunto, contenido);
-
-
-return "";
-}   
-
+//@PostMapping("/enviarmail/")
+//public String enviarMail(@RequestParam String destinatario,@RequestParam String asunto,@RequestParam String contenido,@RequestParam String comentario ){
+//  
+//
+//mailService.contactar(asunto, comentario);
+//
+////mailService.enviarMail(destinatario, asunto, contenido); // LA EMPRESA ENVIA UN MAIL A UNA PERSONA
+//
+//
+//return "mail";
+//}   
+//
 
 
 
