@@ -51,6 +51,12 @@ public class UserController {
 
             Usuario user = userService.obtenerUsuarioSesion();
             userService.createContact(user, name, message);
+
+
+mailService.contactar(user.getEmail(),name,message);
+
+
+
         } catch (Error ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
