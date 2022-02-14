@@ -47,18 +47,18 @@ public class MailService {
 
 
 
-    public void contactar(String cuerpo, String mail) {
+    public void contactar(String mail, String name, String cuerpo) {
 //Mail a la empresa
         SimpleMailMessage mensaje = new SimpleMailMessage();
 
         mensaje.setTo("egameggrrhh@gmail.com");
         mensaje.setFrom("egameggrrhh@gmail.com");
         mensaje.setSubject("CONTACT US");
-        mensaje.setText("Destinatarios: " + mail+"\n"+
+        mensaje.setText("El usuario de mail: " + mail+"\n"+
 
-"Asunto: " + cuerpo+"\n"+
+"Nombre: " + name+"\n"+
 
-"Comentario: " + mail+"\n"
+"Comentario: " + cuerpo+"\n"
 
 
 );
