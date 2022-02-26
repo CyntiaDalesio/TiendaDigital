@@ -13,9 +13,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -25,24 +27,24 @@ public class UserController {
     private MailService mailService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/users")
+    @GetMapping("/")
     public String index(ModelMap model) {
 
         List<Usuario> users = userService.ListUsers();
         model.put("usuarios", users);
 
-        return "users.html";
+        return "users/users.html";
     }
 
     @GetMapping("/register")
     public String newUser() {
-        return "register.html";
+        return "users/register.html";
     }
 
     @GetMapping("/contact")
     public String newContact(ModelMap model) {
 
-        return "contact.html";
+        return "users/contact.html";
     }
 
     @PostMapping("/contact/")
@@ -52,10 +54,7 @@ public class UserController {
             Usuario user = userService.obtenerUsuarioSesion();
             userService.createContact(user, name, message);
 
-
-mailService.contactar(user.getEmail(),name,message);
-
-
+            mailService.contactar(user.getEmail(), name, message);
 
         } catch (Error ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +82,7 @@ mailService.contactar(user.getEmail(),name,message);
 
         model.put("user", user);
 
-        return "editUser.html";
+        return "users/editUser.html";
     }
 
     @PostMapping("/editUser")
@@ -96,21 +95,21 @@ mailService.contactar(user.getEmail(),name,message);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/users/editRole/{id}")
+    @GetMapping("/editRole/{id}")
     public String editRole(@PathVariable String id, ModelMap model) throws Error {
 
         userService.changeRolUser(id);
 
-        return "redirect:/users";
+        return "redirect:/users/";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/users/deleteUser/{id}")
+    @GetMapping("/deleteUser/{id}")
     public String deleteRole(@PathVariable String id, ModelMap model) throws Error {
 
         userService.deleteUser(id);
 
-        return "redirect:/users";
+        return "redirect:/users/";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -118,12 +117,12 @@ mailService.contactar(user.getEmail(),name,message);
     public String updateRole(@PathVariable String id, @RequestParam String username, @RequestParam String password, @RequestParam String password2, @RequestParam String email, @RequestParam String dni) throws Error {
 
         userService.changeUser(id, username, dni, email, password, password2);
-        return "redirect:/users";
+        return "redirect:/users/users";
     }
 
     @GetMapping("/registerSeller")
     public String newSeller() {
-        return "registerSeller.html";
+        return "users/registerSeller.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -136,7 +135,7 @@ mailService.contactar(user.getEmail(),name,message);
         } catch (Error ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 }

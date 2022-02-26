@@ -37,7 +37,7 @@
 <main class="main">
     <div class="container">
         <h2 class="register-title">Conta<span>ctate</span></h2>
-    <form th:action="@{/contact/}" method="post" class="col-6 mx-auto">
+    <form th:action="@{/users/contact/}" method="post" class="col-6 mx-auto">
         <label> Nombre y Apellido </label><br />
 
         <input type="text" name="name" placeholder="Nombre y apellido" >
@@ -47,7 +47,7 @@
         <textarea type="text" name="message" placeholder=" Escriba aqui su mensaje"></textarea>
 
         <input type="submit" value="Enviar Consulta" class="button" >
-        <input type="button" value="Cancelar" class="btn" onclick="location.href='../'">
+        <input type="button" value="Cancelar" class="btn" onclick="location.href='/'">
     </form>
      </div>
 </main>
