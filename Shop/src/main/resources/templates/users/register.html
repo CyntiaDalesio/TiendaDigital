@@ -18,7 +18,7 @@
             href="/src/main/resources/static/styles/register.css"
             th:href="@{/styles/register.css}"
             />
-        <title>Registrar Vendedor</title>
+        <title>Registrar usuario</title>
     </head>
     <body>
         <header>
@@ -29,7 +29,7 @@
         <main class="main">
             <div class="container">
                 <h2 class="register-title">Regis<span>trate</span></h2>
-            <form th:action="@{/registerSeller}" method="post" class="col-6 mx-auto">
+            <form th:action="@{/users/register}" method="post" class="col-6 mx-auto">
                 <label> Usuario </label><br />
 
                 <input type="text" name="username" placeholder="Usuario" required/><br />

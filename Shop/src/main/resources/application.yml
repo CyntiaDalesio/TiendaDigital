@@ -35,3 +35,9 @@ server:
         http-only: true
       tracking-modes:
       - cookie
+#logging:
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
+#    com.howtodoinjava: DEBUG
+#    org.hibernate: ERROR

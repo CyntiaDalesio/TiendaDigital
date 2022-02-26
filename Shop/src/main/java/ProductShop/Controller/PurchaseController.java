@@ -16,9 +16,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/purchases")
 public class PurchaseController {
 
     @Autowired
@@ -39,7 +41,7 @@ public class PurchaseController {
         } catch (Exception e) {           
             throw new ErrorServicio("Producto no econtrado");
         }        
-        return "purchaseProduct.html";
+        return "purchases/purchaseProduct.html";
     }
 
 //    @PostMapping("/purchase")
@@ -58,19 +60,18 @@ public class PurchaseController {
 //        model.put("purchase", purchase);
 //        return "purchaseProduct.html";
 //    }
-    @PostMapping("/purchase/finished")
-    public String purchaseFinished(@RequestParam String idProduct, @RequestParam Integer cantity, @RequestParam String paymentMethod) throws ErrorServicio, InterruptedException {
+    @PostMapping("/finished")
+    public String purchaseFinished(@RequestParam String idProduct, @RequestParam Integer quantity, @RequestParam String paymentMethod) throws ErrorServicio, InterruptedException {
         try {
             Usuario user = userService.obtenerUsuarioSesion();            
-            purchaseDetService.createDetailsPurchase(idProduct, user.getIdUser(), cantity, paymentMethod);
-            purchaseDetService.decreaseStock(idProduct, cantity);
+            purchaseDetService.createDetailsPurchase(idProduct, user.getIdUser(), quantity, paymentMethod);
+            purchaseDetService.decreaseStock(idProduct, quantity);
             //model.put("exito", "Compra realizada con éxito");
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorServicio("Error de Sistema");
         }
-
-Thread.sleep(1000);
+        Thread.sleep(1000);
         return "redirect:/";
     }
 
@@ -87,7 +88,7 @@ Thread.sleep(1000);
         List<Purchase> shopping = purchaseService.showPurchaseByIdUser(user.getIdUser());
         model.put("compras", shopping);
 
-        return "myShopping.html";
+        return "purchases/myShopping.html";
     }
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SELLER')")
@@ -97,7 +98,7 @@ Thread.sleep(1000);
         List<Purchase> sales = purchaseService.showPurchaseByCodPurchase();
         model.put("ventas", sales);
 
-        return "sales.html";
+        return "purchases/sales.html";
     }
     
     @PostMapping("/searchclient/{cliente}")
@@ -111,7 +112,7 @@ Thread.sleep(1000);
     public String searchArticulo(ModelMap model, String articulo) {
         List<Purchase> sales = purchaseService.showPurchaseByArticulo(articulo);
         model.put("ventas", sales);
-        return "sales.html";
+        return "purchases/sales.html";
     }
     
 }
