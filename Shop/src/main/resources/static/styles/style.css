@@ -25,18 +25,23 @@ header{
 
 .main-title{
     margin-left: 15px;
-    transition: transform 0.5s;
+    /* transition: transform 0.8s; */
 }
 
 .main-title {
-    animation: bouncel 5s alternate infinite ease-in;
+    animation: bouncel 4s alternate infinite ease-in;
 }
 @keyframes bouncel {
     0%{
-        transform: translate(20%);
+        /* transform: translateY(20%); */
+        transform: translateX(20%);
+    }
+    50%{
+        transform: translateY(50%);
     }
     100%{
-        transform: translate(60%);
+        transform: translateX(60%);
+        /* transform: translateY(60%); */
     }
 }
 
