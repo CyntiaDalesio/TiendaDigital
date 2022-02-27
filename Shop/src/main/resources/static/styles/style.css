@@ -27,6 +27,22 @@ header{
     margin-left: 15px;
     transition: transform 0.5s;
 }
+
+.main-title {
+    animation: bouncel 5s alternate infinite ease-in;
+}
+@keyframes bouncel {
+    0%{
+        transform: translate(20%);
+    }
+    100%{
+        transform: translate(60%);
+    }
+}
+
+
+
+
 .main-title h1{
     font-size:27px;
     font-weight: bold;
