@@ -137,5 +137,9 @@ public class UserController {
         }
         return "redirect:/";
     }
+ @GetMapping("/ShoppingCart")
+    public String add() {
+        return "users/ShoppingCart.html";
+    }
 
 }

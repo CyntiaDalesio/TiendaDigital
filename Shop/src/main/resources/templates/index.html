@@ -46,6 +46,7 @@
             <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/purchases/purchase/myShopping/}" class="a-button">Mis
                 Compras</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/users/editUser}" class="a-button">Modificar perfil</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/users/ShoppingCart}" class="a-button">Carrito</a>
             <a sec:authorize="isAuthenticated()" href="/logout" type="logOut" id="LogOut" class="a-button">Salir</a>
             <br>
             <br>
@@ -79,6 +80,7 @@
                                 Compras</a></li>
                         <li><a sec:authorize="isAuthenticated()" th:href="@{/users/editUser}" class=" m">Modificar
                                 perfil</a></li>
+                                <li><a sec:authorize="isAuthenticated()" th:href="@{/users/ShoppingCart}" class=" m">Carrito</a></li>
                         <li><a sec:authorize="isAuthenticated()" href="/logout" type="logOut" id="LogOut"
                                 class=" m">Salir</a></li>
                         <li><a sec:authorize="hasRole('ROLE_USER') or hasRole('ROLE_SELLER')"
