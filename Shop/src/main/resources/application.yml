@@ -9,7 +9,7 @@ spring:
                 starttls:
                     required: true
                     enable: true
-                 
+
   datasource: 
     url: jdbc:mysql://localhost:3306/TiendaProducto?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     username: root
